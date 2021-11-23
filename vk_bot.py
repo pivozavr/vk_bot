@@ -21,15 +21,16 @@ class MyVkBotLongPoll(VkBotLongPoll):
                     for event in self.check():
                         yield event
                 except Exception as e:
-                    print('Вк опять перезагрузился:', e, 'Нахуя, а главное зачем?')
+                    print('Вк опять перезагрузился:', e)
 
 def main():
+    token_api = 'Ваш код сообщества'
 
-    vk_session = vk_api.VkApi(token = 'b8284ba8372fe334b7d90358e09bddca3b207a612c82d4ba5123191430e3dd8a1bcce45b079f7aed72051')
+    vk_session = vk_api.VkApi(token = token_api)
 
-    token = 'b8284ba8372fe334b7d90358e09bddca3b207a612c82d4ba5123191430e3dd8a1bcce45b079f7aed72051'
-
-    longpoll = MyVkBotLongPoll(vk_session, group_id='189863854')
+    
+    groupId = 'Id Вашей группы'
+    longpoll = MyVkBotLongPoll(vk_session, group_id=groupId)
 
     vk = vk_session.get_api()
     id=1
@@ -39,13 +40,13 @@ def main():
 
 
 
-    members_id=vk.groups.getMembers(group_id='189863854')['items']
-    members_count=vk.groups.getMembers(group_id='189863854')['count']
+    members_id=vk.groups.getMembers(group_id=groupId)['items']
+    members_count=vk.groups.getMembers(group_id=groupId)['count']
 
     #vk.groups.edit(group_id='189863854', description='т е с т')
     #vk.groups.ban(group_id='189863854', user_id='486259400')
 
-    message='''while members_count>=t:
+    test_message='''while members_count>=t:
         try:
             vk.messages.send(user_id=members_id[t], message='', random_id=get_random_id())
         except Exception as e:
@@ -65,53 +66,23 @@ def main():
     p=0
 
 
+    #расписание на 2 разные недели
 
+    timetable2={0:'''''',
+               1:'''''',
+               2:'''''',
+               3:'''''',
+               4:'''''',
+               5:'''''',
+               6:''''''}
 
-    timetable2={0:'''1 пара - Английский язык(Балашова - 121, Савушкина - 312А)
-2 пара - ОБЖ
-3 пара - Алгебра
-4 пара - География''',
-               1:'''1 пара - Физика
-2 пара - Русский язык
-3 пара - История
-4 пара - Литература''',
-               2:'''1 пара - Информатика(Павлюк - 308)
-2 пара - Физика
-3 пара - Обществознание
-4 пара - Физкультура''',
-               3:'''1 пара - Английский язык(Балашова - 121, Савушкина - 311)
-2 пара - Алгебра
-3 пара - Биология
-4 пара - Информатика(Сычева - 306)''',
-               4:'''1 пара - Черчение
-2 пара - Геометрия
-3 пара - Химия
-4 пара - РУсский язык''',
-               5:'''Уроков нет!''',
-               6:'''Уроков нет!'''}
-
-    timetable1={0:'''1 пара - Информатика(Сычева - 306, Павлюк - 308)
-2 пара - Физика
-3 пара - Английский язык(Балашова - 121, Савушкина - 311)
-4 пара - Физкультура''',
-               1:'''1 пара - Алгебра
-2 пара - Геометрия
-3 пара - Химия
-4 пара - МХК''',
-               2:'''1 пара - Физика
-2 пара - СД ЦПО(315)
-3 пара - История
-4 пара - Физкультура''',
-               3:'''1 пара - Биология
-2 пара - Информатика(Сычева - 306, Павлюк - 308)
-3 пара - Геометрия
-4 пара - Русский язык''',
-               4:'''1 пара - География
-2 пара - Литература
-3 пара - Алгебра
-4 пара - Русский язык''',
-               5:'''Уроков нет!''',
-               6:'''Уроков нет!'''}
+    timetable1={0:'''''',
+               1:'''''',
+               2:'''''',
+               3:'''''',
+               4:'''''',
+               5:'''''',
+               6:''''''}
 
     r=0
 
@@ -150,10 +121,6 @@ def main():
                         vk.messages.send(user_id=event.message.peer_id, message='спам', random_id=get_random_id())
                         time.sleep(5)
                         r+=1
-                    #if event.type == VkBotEventType.MESSAGE_NEW:
-                        #if event.message.text.lower().find('привет') != -1:
-                elif event.message.text.lower().find('когда эмиль перестанет быть геем') != -1:
-                    vk.messages.send(user_id=event.message.peer_id, message='Походу никогда', random_id=get_random_id())
                 elif event.message.text.lower().find('когда') != -1:
                     vk.messages.send(user_id=event.message.peer_id, message=event.message.text[6:]+' ближе чем кажется', random_id=get_random_id())
                 elif event.message.text.lower() == 'расписание на сегодня':
